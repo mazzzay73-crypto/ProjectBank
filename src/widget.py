@@ -35,7 +35,7 @@ def get_date(date: str) -> str:
 
 date = input("Please enter date")
 correct_day = get_date(date)
-print (correct_day)
+print(correct_day)
 
 card_info = input("Please enter your number: ")
 result = mask_account_card(card_info)
