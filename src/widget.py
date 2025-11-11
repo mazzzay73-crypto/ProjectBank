@@ -1,5 +1,7 @@
 from src.masks import get_mask_account, get_mask_card_number
 """Импортируем функции для скрытия номера карты и счета из masks"""
+
+
 def mask_account_card(card_info: str) -> str:
     """Функция принимает строку и выводит замаскированный номер"""
     number = ""
@@ -18,6 +20,7 @@ def mask_account_card(card_info: str) -> str:
 
     return f"{type_of_inf} [{masked_result}]"
 
+
 def get_date(date: str) -> str:
 
     year_month_day = ""
@@ -32,6 +35,7 @@ def get_date(date: str) -> str:
     day = year_month_day[8:]
 
     return f"{day}.{month}.{year}"
+
 
 date = input("Please enter date")
 correct_day = get_date(date)
