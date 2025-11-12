@@ -4,21 +4,17 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(card_info: str) -> str:
     """Функция принимает строку и выводит замаскированный номер"""
-    number = ""
-    type_of_inf = ""
+    parts = card_info.split()
+    number = parts[-1]
+    first_part = parts[0:-1]
+    type_of_inf = " ".join(first_part)
 
-    for part in card_info:
-        if part.isdigit():
-            number += part
-        elif part.isalpha():
-            type_of_inf += part
-
-    if type_of_inf == "счет" or type_of_inf == "Счет":
+    if "счет" in card_info.lower():
         masked_result = get_mask_account(number)
     else:
         masked_result = get_mask_card_number(number)
 
-    return f"{type_of_inf} [{masked_result}]"
+    return f"{type_of_inf} {masked_result}"
 
 
 def get_date(date: str) -> str:
