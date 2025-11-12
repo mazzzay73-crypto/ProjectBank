@@ -18,19 +18,19 @@ def mask_account_card(card_info: str) -> str:
 
 
 def get_date(date: str) -> str:
-
-    year_month_day = ""
-    year = ""
-    month = ""
-    day = ""
+    """Фунукция принимает строку с датой и выводит дату в формате ДД.ММ.ГГГГ"""
+    #year_month_day = ""
+    #year = ""
+    #month = ""
+    #day = ""
 
     split_date = date.split("T")
     year_month_day = split_date[0]
-    year = year_month_day[0:4]
-    month = year_month_day[5:7]
-    day = year_month_day[8:]
+    #year = year_month_day[0:4]
+    #month = year_month_day[5:7]
+    #day = year_month_day[8:]
 
-    return f"{day}.{month}.{year}"
+    return f"{year_month_day[8:]}.{year_month_day[5:7]}.{year_month_day[0:4]}"
 
 
 date = input("Please enter date")
