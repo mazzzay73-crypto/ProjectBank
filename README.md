@@ -7,7 +7,7 @@
 ## Установка:
 
 Клонируйте репозиторий:
-```https://github.com/mazzzay73-crypto/ProjectBank```
+```https://github.com/mazzzay73-crypto/ProjectBank/tree/feature/homework_10_1```
 
 ## Использование:
 
