@@ -1,6 +1,8 @@
 from datetime import datetime
-
+"""Импортируем модуль datetime"""
 def filter_by_state(list_dict: list[dict], state: str = "EXECUTED") -> list[dict]:
+    """Функция принимает список словарей и возвращает новый список словарей, содержащий только те словари, у которых ключ
+state соответствует указанному значению."""
     filtred_list = []
     for item in list_dict:
         if item.get("state") == state:
@@ -9,6 +11,7 @@ def filter_by_state(list_dict: list[dict], state: str = "EXECUTED") -> list[dict
 
 
 def sort_by_date(list_of_dict: list[dict], reverse=True) -> list[dict]:
+    """Функция принимает на вход список словарей и возвращает список, отсортированный по дате"""
     sorted_list = sorted(list_of_dict, key=lambda item: datetime.strptime(item["date"], "%Y-%m-%d"))
     return sorted_list
 
