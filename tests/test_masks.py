@@ -3,20 +3,19 @@ from src.masks import get_mask_card_number
 from src.masks import get_mask_account
 
 
-@pytest.fixture
-def number():
-    return "4545454545454545"
-
-
-@pytest.mark.parametrize("result", ["4545 45** **** 4545"])
-def test_get_mask_card_number(number: str, result) -> str:
+@pytest.mark.parametrize("number, result", [
+    ("4545454545454545", "4545 45** **** 4545"),
+    ("4545 45 45 4545 4545", "4545 45** **** 4545"),
+    ("", "")
+])
+def test_get_mask_card_number(number: str, result: str) -> str:
     assert get_mask_card_number(number) == result
 
-@pytest.fixture
-def account():
-    return "123456789"
 
-
-@pytest.mark.parametrize("masked", ["**6789"])
-def test_get_mask_account(account: str, masked) -> str:
+@pytest.mark.parametrize("account, masked", [
+    ("123456789", "**6789"),
+    ("123", "**123"),
+    ("", "")
+])
+def test_get_mask_account(account: str, masked: str) -> str:
     assert get_mask_account(account) == masked
