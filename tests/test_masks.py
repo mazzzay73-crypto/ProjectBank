@@ -5,7 +5,7 @@ from src.masks import get_mask_account
 
 @pytest.fixture
 def number():
-    return "4545 4545 4545 4545"
+    return "4545454545454545"
 
 
 @pytest.mark.parametrize("result", ["4545 45** **** 4545"])

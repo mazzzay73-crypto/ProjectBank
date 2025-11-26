@@ -25,12 +25,3 @@ def get_date(date: str) -> str:
     year_month_day = split_date[0]
 
     return f"{year_month_day[8:]}.{year_month_day[5:7]}.{year_month_day[0:4]}"
-
-
-date = input("Please enter date")
-correct_day = get_date(date)
-print(correct_day)
-
-card_info = input("Please enter your number: ")
-result = mask_account_card(card_info)
-print(result)
