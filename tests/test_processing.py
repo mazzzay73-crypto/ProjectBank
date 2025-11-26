@@ -43,7 +43,7 @@ def without_state():
 
 
 @pytest.mark.parametrize("expected", [])
-def test_filter_by_state_witout_state(without_state: list[dict], expected: list[dict]):
+def test_filter_by_state_without_state(without_state: list[dict], expected: list[dict]):
     assert filter_by_state(without_state) == expected
 
 
