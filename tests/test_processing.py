@@ -29,7 +29,7 @@ def state():
      {'date': '2018-10-14T08:21:33.419441', 'id': 615064591, 'state': 'CANCELED'}]
 ])
 def test_filter_by_state_cancelled(unsorted: list[dict], state: str, sorted_state: list[dict]):
-    assert filter_by_state(unsorted, state) == sorted_state
+    assert filter_by_state(unsorted, state ) == sorted_state
 
 
 @pytest.fixture
