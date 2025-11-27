@@ -42,8 +42,8 @@ def without_state():
 ]
 
 
-@pytest.mark.parametrize("expected", [])
-def test_filter_by_state_without_state(without_state: list[dict], expected: list[dict]):
+@pytest.mark.parametrize("expected", ["Not found"])
+def test_filter_by_state_without_state(without_state: list[dict], expected: list[dict], state: str = None):
     assert filter_by_state(without_state) == expected
 
 
