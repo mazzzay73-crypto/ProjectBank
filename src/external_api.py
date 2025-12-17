@@ -1,6 +1,6 @@
 import os
 import requests
-from typing import Dict
+from typing import Dict, Any
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -29,50 +29,27 @@ def get_exchange_rates(base_currency: str = 'RUB') -> Dict[str, float]:
     return data.get('rates', {})
 
 
-def convert_to_rub(amount: float, currency: str) -> float:
+def convert_to_rub(transaction: Dict[str, Any]) -> float:
     """
-    Конвертирует сумму в рубли
-    """
-    if currency == 'RUB':
-        return amount
-
-    rates = get_exchange_rates('RUB')
-
-    rate = rates.get(currency)
-
-    if rate:
-        result = amount / rate
-        return round(result, 2)
-    else:
-        raise ValueError(f"Курс для валюты {currency} не найден")
-
-
-def get_transaction_amount_in_rub(transaction: tuple) -> float:
-    """
-    Возвращает сумму транзакции в рублях
-    """
-    amount, currency = transaction
-    return convert_to_rub(amount, currency)
-
-
-import os
-import requests
-from typing import Dict
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
-def get_exchange_rates(base_currency: str = 'RUB') -> Dict[str, float]:
-    """
-    Получает текущие курсы валют от API
+    Конвертирует сумму транзакции в рубли через API endpoint /convert
     """
     api_key = os.getenv('API_KEY')
 
-    url = "https://api.apilayer.com/exchangerates_data/latest"
+    try:
+        amount = float(transaction['operationAmount']['amount'])
+        currency = transaction['operationAmount']['currency']['code']
+    except (KeyError, ValueError) as e:
+        raise ValueError(f"Некорректная структура транзакции: {e}")
+
+    if currency == 'RUB':
+        return amount
+
+    url = "https://api.apilayer.com/exchangerates_data/convert"
 
     params = {
-        'base': base_currency
+        'from': currency,
+        'to': 'RUB',
+        'amount': amount
     }
 
     headers = {
@@ -80,33 +57,21 @@ def get_exchange_rates(base_currency: str = 'RUB') -> Dict[str, float]:
     }
 
     response = requests.get(url, headers=headers, params=params)
-
     data = response.json()
 
-    return data.get('rates', {})
-
-
-def convert_to_rub(amount: float, currency: str) -> float:
-    """
-    Конвертирует сумму в рубли
-    """
-    if currency == 'RUB':
-        return amount
-
-    rates = get_exchange_rates('RUB')
-
-    rate = rates.get(currency)
-
-    if rate:
-        result = amount / rate
-        return round(result, 2)
+    if response.status_code == 200 and data.get('success', False):
+        result = data.get('result')
+        if result is not None:
+            return float(result)
+        else:
+            raise ValueError("API не вернул результат конвертации")
     else:
-        raise ValueError(f"Курс для валюты {currency} не найден")
+        error_info = data.get('error', {}).get('info', 'Неизвестная ошибка')
+        raise ConnectionError(f"Ошибка API: {error_info}")
 
 
-def get_transaction_amount_in_rub(transaction: tuple) -> float:
+def get_transaction_amount_in_rub(transaction: Dict[str, Any]) -> float:
     """
     Возвращает сумму транзакции в рублях
     """
-    amount, currency = transaction
-    return convert_to_rub(amount, currency)
+    return convert_to_rub(transaction)
