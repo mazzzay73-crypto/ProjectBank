@@ -1,10 +1,8 @@
-# test_simple.py
 import pytest
 import pandas as pd
 import tempfile
 import os
 
-# Импорт функций
 from transactions_reader import read_csv_file, read_excel_file
 
 
