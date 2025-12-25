@@ -4,7 +4,8 @@ logger = setup_logger('masks')
 
 
 def get_mask_card_number(card_number: str) -> str:
-    """Функция принимает номер карты card_number, удаляет пробелы и возвращает замаскированный номер с пробелами"""
+    """Функция принимает номер карты card_number, удаляет пробелы
+    и возвращает замаскированный номер с пробелами"""
 
     logger.info(f"get_mask_card_number: {card_number}")
 
@@ -19,7 +20,8 @@ def get_mask_card_number(card_number: str) -> str:
 
 
 def get_mask_account(account_number: str) -> str:
-    """Функция принимает номер счета account_number и возвращает замаскированный номер"""
+    """Функция принимает номер счета account_number
+     и возвращает замаскированный номер"""
 
     logger.info(f"get_mask_account: {account_number}")
 

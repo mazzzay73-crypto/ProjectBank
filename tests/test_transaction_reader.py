@@ -8,7 +8,7 @@ from transactions_reader import read_csv_file, read_excel_file
 
 def test_csv_basic():
     """Базовый тест чтения CSV"""
-    # Создаем тестовый CSV
+
     content = "name,age\nAlice,30\nBob,25"
 
     with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
@@ -26,6 +26,7 @@ def test_csv_basic():
 
 def test_excel_basic():
     """Базовый тест чтения Excel"""
+
     df = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
 
     with tempfile.NamedTemporaryFile(mode='w', suffix='.xlsx', delete=False) as f:
@@ -42,6 +43,7 @@ def test_excel_basic():
 
 def test_file_not_found():
     """Тест ошибки для несуществующего файла"""
+
     with pytest.raises(FileNotFoundError):
         read_csv_file("/fake/path/file.csv")
 

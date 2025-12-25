@@ -55,4 +55,4 @@ exclude = '''
 
 [tool.isort]
 line_length = 119
-
+group_imports = "separate"
