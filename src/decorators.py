@@ -1,16 +1,18 @@
 from time import time
 
 
-def log(filename: Optional[str] = None, print_time: bool = True):
+def log(filename: [str] = None, print_time: bool = True):
     """Декоратор для логирования функций"""
+
     def decorator(func):
         """Обертка для функции"""
+
         def wrapper(*args, **kwargs):
-            """"Функция с логированием"""
+            """ "Функция с логированием"""
             func_name = func.__name__
 
             if filename:
-                with open(filename, 'a', encoding='utf-8') as f:
+                with open(filename, "a", encoding="utf-8") as f:
                     f.write(f"{func_name} started\n")
             else:
                 print(f"{func_name} started")
@@ -26,14 +28,14 @@ def log(filename: Optional[str] = None, print_time: bool = True):
                 if print_time:
                     time_msg = f"Time for work: {duration:.4f}"
                     if filename:
-                        with open(filename, 'a', encoding='utf-8') as f:
-                            f.write(time_msg + '\n')
+                        with open(filename, "a", encoding="utf-8") as f:
+                            f.write(time_msg + "\n")
                     else:
                         print(time_msg)
 
                 if filename:
-                    with open(filename, 'a', encoding='utf-8') as f:
-                        f.write(success_msg + '\n')
+                    with open(filename, "a", encoding="utf-8") as f:
+                        f.write(success_msg + "\n")
                 else:
                     print(success_msg)
 
@@ -44,8 +46,8 @@ def log(filename: Optional[str] = None, print_time: bool = True):
                 error_msg = f"[{func_name}] error: {type(e).__name__}. Inputs: {args}, {kwargs}"
 
                 if filename:
-                    with open(filename, 'a', encoding='utf-8') as f:
-                        f.write(error_msg + '\n')
+                    with open(filename, "a", encoding="utf-8") as f:
+                        f.write(error_msg + "\n")
                 else:
                     print(error_msg)
 

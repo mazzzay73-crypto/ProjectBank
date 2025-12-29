@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 from .log_config import setup_logger
 
 
-logger = setup_logger('utils')
+logger = setup_logger("utils")
 
 
 def load_transactions(file_path: str) -> List[Dict[str, Any]]:
@@ -22,7 +22,7 @@ def load_transactions(file_path: str) -> List[Dict[str, Any]]:
         return []
 
     try:
-        with open(file_path, 'r', encoding='utf-8') as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             data = json.load(file)
 
         if isinstance(data, list):

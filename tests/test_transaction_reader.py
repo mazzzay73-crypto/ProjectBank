@@ -11,7 +11,7 @@ def test_csv_basic():
 
     content = "name,age\nAlice,30\nBob,25"
 
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.csv', delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as f:
         f.write(content)
         filepath = f.name
 
@@ -19,7 +19,7 @@ def test_csv_basic():
         result = read_csv_file(filepath)
         assert isinstance(result, pd.DataFrame)
         assert len(result) == 2
-        assert list(result.columns) == ['name', 'age']
+        assert list(result.columns) == ["name", "age"]
     finally:
         os.unlink(filepath)
 
@@ -27,9 +27,9 @@ def test_csv_basic():
 def test_excel_basic():
     """Базовый тест чтения Excel"""
 
-    df = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+    df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
 
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.xlsx', delete=False) as f:
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".xlsx", delete=False) as f:
         df.to_excel(f.name, index=False)
         filepath = f.name
 

@@ -37,5 +37,5 @@ list_of_dict = [
 ]
 
 
-sorted_list = sort_by_date(list_of_dict, reverse = True)
+sorted_list = sort_by_date(list_of_dict, reverse=True)
 print(sorted_list)

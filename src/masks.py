@@ -1,6 +1,6 @@
 from .log_config import setup_logger
 
-logger = setup_logger('masks')
+logger = setup_logger("masks")
 
 
 def get_mask_card_number(card_number: str) -> str:
@@ -21,7 +21,7 @@ def get_mask_card_number(card_number: str) -> str:
 
 def get_mask_account(account_number: str) -> str:
     """Функция принимает номер счета account_number
-     и возвращает замаскированный номер"""
+    и возвращает замаскированный номер"""
 
     logger.info(f"get_mask_account: {account_number}")
 

@@ -1,11 +1,8 @@
-from datetime import datetime
-
-
-def filter_by_state(list_dict: list[dict], state: str = 'EXECUTED'):
+def filter_by_state(list_dict: list[dict], state: str = "EXECUTED"):
     """Функция принимает список словарей и возвращает новый список словарей, содержащий словари, у которых ключ
-state соответствует указанному значению."""
+    state соответствует указанному значению."""
     filtered_list = []
-    if not any('state' in item for item in list_dict):
+    if not any("state" in item for item in list_dict):
         return "Not found"
     for item in list_dict:
         if item.get("state") == state:

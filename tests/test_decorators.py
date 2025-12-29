@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from src.decorators import log, function_with_exception, my_function, logged_to_file_function
+from src.decorators import function_with_exception, my_function, logged_to_file_function
 
 
 def test_successful_execution_output(capsys):
@@ -36,7 +36,7 @@ def test_file_output():
 
     assert os.path.exists("test_log.txt")
 
-    with open("test_log.txt", 'r', encoding='utf-8') as f:
+    with open("test_log.txt", "r", encoding="utf-8") as f:
         content = f.read()
 
     assert "logged_to_file_function started" in content
