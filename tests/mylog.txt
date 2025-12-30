@@ -1,0 +1,17 @@
+
+[my_function' ok
+
+[my_function' ok
+
+[my_function' ok
+
+[my_function' ok
+[my_function] started
+Time for work: 0.0000
+[my_function] ok
+[my_function] started
+Time for work: 0.0000
+[my_function] ok
+my_function started
+Time for work: 0.0000
+my_function ok
