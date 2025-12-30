@@ -1,4 +1,5 @@
 import pytest
+from collections import Counter
 from src.bank_search import process_bank_search, process_bank_operations
 from src.bank_operations import filter_by_status, validate_status
 
@@ -107,3 +108,29 @@ def test_filter_param(transactions, status, expected_count):
 ])
 def test_validate_param(status, is_valid):
     assert validate_status(status) == is_valid
+
+
+def test_process_bank_operations_with_counter(transactions):
+    """Подсчет операций с использованием Counter"""
+    categories = ["Перевод", "Оплата", "Покупка"]
+    result = process_bank_operations(transactions, categories)
+
+    # Проверяем, что результат - это словарь
+    assert isinstance(result, dict)
+
+    # Проверяем правильность подсчета
+    assert result["Перевод"] == 2
+    assert result["Оплата"] == 1
+    assert result["Покупка"] == 1
+
+
+def test_process_bank_operations_empty_categories(transactions):
+    """Подсчет с пустыми категориями"""
+    result = process_bank_operations(transactions, [])
+    assert result == {}
+
+
+def test_process_bank_operations_empty_data():
+    """Подсчет с пустыми данными"""
+    result = process_bank_operations([], ["Перевод"])
+    assert result == {}

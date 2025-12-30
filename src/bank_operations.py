@@ -4,13 +4,6 @@ from typing import List, Dict, Any
 def filter_by_status(data: List[Dict[str, Any]], status: str) -> List[Dict[str, Any]]:
     """
     Фильтрует транзакции по статусу.
-
-    Args:
-        data: Список словарей с данными о транзакциях
-        status: Статус для фильтрации
-
-    Returns:
-        Отфильтрованный список транзакций
     """
     if not data:
         return []
@@ -29,31 +22,31 @@ def filter_by_status(data: List[Dict[str, Any]], status: str) -> List[Dict[str, 
 def validate_status(status: str) -> bool:
     """
     Проверяет, является ли статус допустимым.
-
-    Args:
-        status: Статус для проверки
-
-    Returns:
-        True если статус допустим, False в противном случае
     """
     valid_statuses = ['executed', 'canceled', 'pending']
     return status.lower() in valid_statuses
 
 
-def format_transaction(transaction: Dict[str, Any]) -> str:
+def print_transactions(transactions: List[Dict[str, Any]]) -> None:
     """
-    Форматирует транзакцию для вывода.
-
-    Args:
-        transaction: Словарь с данными о транзакции
-
-    Returns:
-        Отформатированная строка
+    Выводит транзакции в читаемом формате.
     """
-    date = transaction.get('date', 'Неизвестная дата')
-    description = transaction.get('description', 'Без описания')
-    amount = transaction.get('amount', 0)
-    currency = transaction.get('currency', '')
-    status = transaction.get('status', 'Неизвестен')
+    if not transactions:
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+        return
 
-    return f"{date} | {description} | {amount} {currency} | {status}"
+    print(f"\nНайдено транзакций: {len(transactions)}")
+    print("=" * 60)
+
+    for i, transaction in enumerate(transactions, 1):
+        date = transaction.get('date', 'Неизвестная дата')
+        description = transaction.get('description', 'Без описания')
+        amount = transaction.get('amount', 0)
+        currency = transaction.get('currency', '')
+        status = transaction.get('status', 'Неизвестен')
+
+        print(f"{i}. Дата: {date}")
+        print(f"   Описание: {description}")
+        print(f"   Сумма: {amount} {currency}")
+        print(f"   Статус: {status}")
+        print("-" * 40)
