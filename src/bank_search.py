@@ -11,14 +11,12 @@ def process_bank_search(data: List[Dict[str, Any]], search: str) -> List[Dict[st
         return []
 
     result = []
-    try:
-        pattern = re.compile(re.escape(search), re.IGNORECASE)
-        for item in data:
-            description = item.get('description', '')
-            if pattern.search(description):
-                result.append(item)
-    except re.error:
-        return []
+    pattern = re.compile(re.escape(search), re.IGNORECASE)
+
+    for item in data:
+        description = item.get('description', '')
+        if pattern.search(description):
+            result.append(item)
 
     return result
 

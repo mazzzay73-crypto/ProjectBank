@@ -9,14 +9,14 @@ def filter_by_status(data: List[Dict[str, Any]], status: str) -> List[Dict[str, 
         return []
 
     status_lower = status.lower()
-    filtered_data = []
+    result = []
 
     for item in data:
         item_status = item.get('status', '').lower()
         if item_status == status_lower:
-            filtered_data.append(item)
+            result.append(item)
 
-    return filtered_data
+    return result
 
 
 def validate_status(status: str) -> bool:
@@ -27,26 +27,38 @@ def validate_status(status: str) -> bool:
     return status.lower() in valid_statuses
 
 
-def print_transactions(transactions: List[Dict[str, Any]]) -> None:
+def filter_rub_transactions(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
-    Выводит транзакции в читаемом формате.
+    Фильтрует только рублевые транзакции.
     """
-    if not transactions:
-        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
-        return
+    if not data:
+        return []
 
-    print(f"\nНайдено транзакций: {len(transactions)}")
-    print("=" * 60)
+    rub_currencies = ['RUB', 'RUR', 'РУБ']
+    return [item for item in data if item.get('currency', '').upper() in rub_currencies]
 
-    for i, transaction in enumerate(transactions, 1):
-        date = transaction.get('date', 'Неизвестная дата')
-        description = transaction.get('description', 'Без описания')
-        amount = transaction.get('amount', 0)
-        currency = transaction.get('currency', '')
-        status = transaction.get('status', 'Неизвестен')
 
-        print(f"{i}. Дата: {date}")
-        print(f"   Описание: {description}")
-        print(f"   Сумма: {amount} {currency}")
-        print(f"   Статус: {status}")
-        print("-" * 40)
+def sort_by_date(data: List[Dict[str, Any]], ascending: bool = True) -> List[Dict[str, Any]]:
+    """
+    Сортирует транзакции по дате.
+    """
+    if not data:
+        return []
+
+    def get_date(item):
+        return item.get('date', '')
+
+    return sorted(data, key=get_date, reverse=not ascending)
+
+
+def format_transaction(transaction: Dict[str, Any]) -> str:
+    """
+    Форматирует транзакцию для вывода.
+    """
+    date = transaction.get('date', 'Неизвестно')
+    description = transaction.get('description', 'Без описания')
+    amount = transaction.get('amount', 0)
+    currency = transaction.get('currency', '')
+    status = transaction.get('status', 'Неизвестен')
+
+    return f"{date} | {description} | {amount} {currency} | {status}"
